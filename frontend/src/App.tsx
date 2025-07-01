@@ -74,7 +74,10 @@ function App() {
                 )
               }
             />
-            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/signup"
+              element={<Signup onAuth={() => setAuthenticated(true)} />}
+            />
             <Route
               path="/signin"
               element={<Signin onAuth={() => setAuthenticated(true)} />}
