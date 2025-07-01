@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import bcrypt from "bcryptjs";
 import zod from "zod";
+import { verify } from "hono/jwt";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { PrismaClient } from "../../generated/prisma/edge";
 
@@ -128,6 +129,45 @@ auth.post("/signin", async (c) => {
     return c.json(
       {
         error: "Failed to sign in",
+      },
+      500
+    );
+  }
+});
+
+auth.get("/verify", async (c) => {
+  try {
+    const token = c.req.header("Authorization")?.split(" ")[1];
+    if (!token) {
+      return c.json(
+        {
+          error: "No token provided",
+        },
+        401
+      );
+    }
+
+    const decoded = await verify(token, c.env.JWT_SECRET);
+
+    if (!decoded || !decoded.userId) {
+      return c.json(
+        {
+          error: "Invalid token",
+        },
+        401
+      );
+    }
+
+    return c.json({
+      valid: true,
+      message: "Token is valid",
+      userId: decoded.userId,
+    });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return c.json(
+      {
+        error: "Failed to verify token",
       },
       500
     );
