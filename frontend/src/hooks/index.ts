@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 export interface Blog {
   id: string;
@@ -20,6 +21,8 @@ export const useBlog = (id: string) => {
     author: { name: "" },
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/blog/${id}`, {
@@ -28,8 +31,13 @@ export const useBlog = (id: string) => {
       .then((response) => {
         setBlog(response.data);
         setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching blog:", error);
+        setLoading(false);
+        navigate("/blogs");
       });
-  }, [id]);
+  }, [id, navigate]);
 
   return { loading, blog };
 };

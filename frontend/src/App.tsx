@@ -4,6 +4,11 @@ import "./App.css";
 import axios from "axios";
 import { BACKEND_URL } from "./config";
 
+// TODO: Try to shift it to the redux
+// TODO: Logout feature
+// TODO: Once login a person can't reach login and signup pages
+// IMPO: Need to think so much there are many more things to do im lazy
+
 const Signup = React.lazy(() => import("./pages/Signup"));
 const Signin = React.lazy(() => import("./pages/Signin"));
 const Blogs = React.lazy(() => import("./pages/Blogs"));
