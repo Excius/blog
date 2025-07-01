@@ -14,6 +14,7 @@ function App() {
       <BrowserRouter>
         <React.Suspense fallback={<div>Loading...</div>}>
           <Routes>
+            <Route path="/" element={<Blogs />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/blogs" element={<Blogs />} />
