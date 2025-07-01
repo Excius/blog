@@ -98,7 +98,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/blog/:id" element={<Blog />} />
+            <Route
+              path="/blog/:id"
+              element={
+                <ProtectedRoute authenticated={authenticated}>
+                  <Blog />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<h2>Page not found</h2>} />
           </Routes>
         </React.Suspense>
