@@ -23,28 +23,28 @@ export const Auth = memo(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         setPostInputs((prev) => ({ ...prev, name: e.target.value }));
       },
-      []
+      [],
     );
 
     const handleEmailChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         setPostInputs((prev) => ({ ...prev, email: e.target.value }));
       },
-      []
+      [],
     );
 
     const handlePasswordChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         setPostInputs((prev) => ({ ...prev, password: e.target.value }));
       },
-      []
+      [],
     );
 
     async function sendRequest() {
       try {
         const res = await axios.post(
           `${BACKEND_URL}/auth/${type === "signup" ? "signup" : "signin"}`,
-          postInputs
+          postInputs,
         );
         const token = res.data.token;
         localStorage.setItem("token", token);
@@ -118,7 +118,7 @@ export const Auth = memo(
         </div>
       </div>
     );
-  }
+  },
 );
 
 interface LabelledInputTypes {
@@ -137,7 +137,6 @@ const LabelledInput = memo(
         </label>
         <input
           type={type}
-          id="first_name"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder={placeholder}
           onChange={onChange}
@@ -145,5 +144,5 @@ const LabelledInput = memo(
         />
       </div>
     );
-  }
+  },
 );
